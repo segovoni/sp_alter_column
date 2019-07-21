@@ -14,14 +14,17 @@ Msg 4922, Level 16, State 9, Line 1135 - ALTER TABLE ALTER COLUMN Columnname fai
 
 How did you solve the problem?
 
-I faced several times this issue, so I decided to create a stored procedure that is able to compose automatically the appropriate commands to DROP and CREATE objects connected to the column I want to modify. Thus was born the Stored Procedure **sp_alter_column** which is now available on this GitHub repository.
+I faced several times this issue, so I decided to create a stored procedure that is able to compose automatically the appropriate commands to DROP and CREATE objects connected to the column I want to modify. Thus was born the Stored Procedure *sp_alter_column* which is now available on this GitHub repository.
 
-## Getting Started
+## Roadmap
+
+The roadmap of the sp_alter_column is always updated as-soon-as the features planned are implemented. Check the roadmap [here](roadmap.md).
+
+# Getting Started
 
 Download the [sp-alter-column.sql](/source/sp-alter-column.sql).
 
 This script creates the sp_alter_column stored procedure in your database!
 
-## Roadmap
 
 Enjoy!
