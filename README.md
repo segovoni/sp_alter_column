@@ -1,6 +1,6 @@
 # SQL Server sp_alter_column stored procedure!
 
-The sp_alter_column stored procedure is able to alter a column with dependencies in your SQL Server database!
+The *sp_alter_column* stored procedure is able to alter a column with dependencies in your SQL Server database!
 
 It will have been happened to you to change the data type or the name of a column and be faced with the error 5074 which indicates that it is impossible to modify the column due to the presence of linked objects such as a Primary Key, Foreign Key, Indexes, Constraints, Statistics and so on.
 
@@ -18,13 +18,11 @@ I faced several times this issue, so I decided to create a stored procedure that
 
 ## Roadmap
 
-The roadmap of the sp_alter_column is always updated as-soon-as the features planned are implemented. Check the roadmap [here](roadmap.md).
+The roadmap of the *sp_alter_column* is always updated as-soon-as the features planned are implemented. Check the roadmap [here](roadmap.md).
 
 # Getting Started
 
-Download the [sp-alter-column.sql](/source/sp-alter-column.sql).
-
-This script creates the sp_alter_column stored procedure in your database!
+Download the [sp-alter-column.sql](/source/sp-alter-column.sql), this script creates the *sp_alter_column* stored procedure in your database!
 
 
 Enjoy!
