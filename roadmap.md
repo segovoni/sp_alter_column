@@ -1,6 +1,6 @@
 # The Roadmap of the sp_alter_column
 
-This document defines our plan for the next features of the sp_alter_column
+This document defines our plan for the next features of the sp_alter_column.
 
 + Documentation
 + Performance optimization
