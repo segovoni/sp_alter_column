@@ -7,7 +7,7 @@ It will have been happened to you to change the data type or the name of a colum
 This is the error you probably faced on:
 
 ```sql
-Msg 5074, Level 16, State 1, Line 1135 - The object 'objectname' is dependent on column 'Columnname'.
+Msg 5074, Level 16, State 1, Line 1135 - The object 'objectname' is dependent on column 'columnname'.
 
 Msg 4922, Level 16, State 9, Line 1135 - ALTER TABLE ALTER COLUMN Columnname failed because one or more objects access this column.
 ```
