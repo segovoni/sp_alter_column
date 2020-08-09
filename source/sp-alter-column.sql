@@ -1,10 +1,14 @@
 ------------------------------------------------------------------------
 -- Project:      sp_alter_column                                       -
---               The stored procedure that is able to alter a column   -
---               with dependencies in your SQL database                -
 --               https://github.com/segovoni/sp_alter_column           -
--- File:         The implementation of the sp_alter_column             -
--- Author:       Sergio Govoni                                         -
+--               The stored procedure is able to alter a column        -
+--               with dependencies in your SQL database. It composes   -
+--               automatically the appropriate DROP and CREATE         -
+--               commands for each object connected to the column      -
+--               I want to modify                                      -
+--                                                                     -
+-- File:         Stored procedure implementation                       -
+-- Author:       Sergio Govoni https://www.linkedin.com/in/sgovoni/    -
 -- Notes:        --                                                    -
 ------------------------------------------------------------------------
 
@@ -26,9 +30,9 @@ AS BEGIN
   /*
     Author: Sergio Govoni https://www.linkedin.com/in/sgovoni/
     Version: 1.0
-	   License: MIT License
-	   Github repository: https://github.com/segovoni/sp_alter_column
-	   Documentation will coming soon!
+    License: MIT License
+    Github repository: https://github.com/segovoni/sp_alter_column
+    Documentation will coming soon!
   */
 
   -- Check input parameters
@@ -287,8 +291,8 @@ AS BEGIN
         ,CAST('' AS VARCHAR(MAX)) AS COLUMN_NAME
         ,CAST('ALTER TABLE [' + RTRIM(KCU.TABLE_SCHEMA) + '].[' + RTRIM(KCU.TABLE_NAME) + '] ' +
               (CASE (K.type)
-                 WHEN 'PK' THEN ' WITH NOCHECK '
-                 ELSE ' '
+                 WHEN 'PK' THEN 'WITH NOCHECK '
+                 ELSE ''
                END)  +
               'ADD CONSTRAINT [' + RTRIM(KCU.CONSTRAINT_NAME) + '] ' +
               (CASE (K.type)
