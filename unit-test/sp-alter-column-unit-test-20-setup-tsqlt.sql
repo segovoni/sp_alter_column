@@ -45,3 +45,6 @@ GO
   4. Execute sp-alter-column.sql in the database you have just installed
      tSQLt framework
 */
+
+SELECT * FROM tSQLt.Info();
+GO

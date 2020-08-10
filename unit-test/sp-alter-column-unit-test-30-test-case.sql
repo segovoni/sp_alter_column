@@ -26,18 +26,32 @@ BEGIN
     Arrange
   */
   DECLARE
-    @EXPECTED_IS_NULLABLE AS SYSNAME = 'NO'
-    ,@EXPECTED_DATA_TYPE AS SYSNAME = 'NVARCHAR'
-    ,@EXPECTED_CHARACTER_MAXIMUM_LENGTH AS INTEGER = 256
-    ,@ACTUAL_IS_NULLABLE AS SYSNAME
-    ,@ACTUAL_DATA_TYPE AS SYSNAME
-    ,@ACTUAL_CHARACTER_MAXIMUM_LENGTH AS INTEGER
-    ,@TestSchemaName AS SYSNAME = 'UnitTestAlterColumn'
+    @TestSchemaName AS SYSNAME = 'UnitTestAlterColumn'
     ,@TestTableName AS SYSNAME = 'test table alter column with PK'
     ,@TestColumnName AS SYSNAME = 'ID';
 
-  DROP TABLE IF EXISTS UnitTestAlterColumn.[test table alter column with PK];
+  -- UnitTestAlterColumn.Expected
+  DROP TABLE IF EXISTS UnitTestAlterColumn.Expected;
+  CREATE TABLE UnitTestAlterColumn.Expected
+  (
+    IS_NULLABLE SYSNAME
+    ,DATA_TYPE SYSNAME
+    ,CHARACTER_MAXIMUM_LENGTH INTEGER
+  );
+  INSERT INTO UnitTestAlterColumn.Expected
+  (
+    IS_NULLABLE
+    ,DATA_TYPE
+    ,CHARACTER_MAXIMUM_LENGTH
+  )
+  VALUES
+  (
+    'NO'
+    ,'NVARCHAR'
+    ,256
+  );
 
+  DROP TABLE IF EXISTS UnitTestAlterColumn.[test table alter column with PK];
   CREATE TABLE UnitTestAlterColumn.[test table alter column with PK]
   (
     ID NVARCHAR(20) NOT NULL PRIMARY KEY
@@ -64,17 +78,15 @@ BEGIN
     @schemaname = @TestSchemaName
     ,@tablename = @TestTableName
     ,@columnname = @TestColumnName
-    --,@columnrename=''
     ,@datatype = 'NVARCHAR(256) NOT NULL'
     ,@executionmode = 1;
 
-  /*
-    Assert
-  */
   SELECT
-    @ACTUAL_IS_NULLABLE = IS_NULLABLE
-    ,@ACTUAL_DATA_TYPE = DATA_TYPE
-    ,@ACTUAL_CHARACTER_MAXIMUM_LENGTH = CHARACTER_MAXIMUM_LENGTH
+    IS_NULLABLE
+    ,DATA_TYPE
+    ,CHARACTER_MAXIMUM_LENGTH
+  INTO
+    UnitTestAlterColumn.Actual
   FROM
     INFORMATION_SCHEMA.COLUMNS
   WHERE
@@ -83,10 +95,14 @@ BEGIN
     AND (COLUMN_NAME = @TestColumnName);
 
   DROP TABLE IF EXISTS dbo.[test table alter column with PK];
- 
-  EXEC tSQLt.AssertEquals @EXPECTED_IS_NULLABLE, @ACTUAL_IS_NULLABLE;
-  EXEC tSQLt.AssertEquals @EXPECTED_DATA_TYPE, @ACTUAL_DATA_TYPE;
-  EXEC tSQLt.AssertEquals @EXPECTED_CHARACTER_MAXIMUM_LENGTH, @ACTUAL_CHARACTER_MAXIMUM_LENGTH;
+
+  /*
+    Assert
+  */
+  EXEC tSQLt.AssertEqualsTable 
+    @Expected = N'UnitTestAlterColumn.Expected'
+    ,@Actual = N'UnitTestAlterColumn.Actual'
+    ,@Message = N'The expected data was not returned.';
 END;
 GO
 
@@ -97,16 +113,32 @@ BEGIN
     Arrange
   */
   DECLARE
-    @EXPECTED_IS_NULLABLE AS SYSNAME = 'YES'
-    ,@EXPECTED_DATA_TYPE AS SYSNAME = 'INT'
-    ,@EXPECTED_NUMERIC_PRECISION AS INTEGER = 10  -- 19 -- Bigint
-    ,@ACTUAL_IS_NULLABLE AS SYSNAME
-    ,@ACTUAL_DATA_TYPE AS SYSNAME
-    ,@ACTUAL_NUMERIC_PRECISION AS INTEGER
-    ,@TestSchemaName AS SYSNAME = 'UnitTestAlterColumn'
+    @TestSchemaName AS SYSNAME = 'UnitTestAlterColumn'
     ,@TestTableName AS SYSNAME = 'test table alter column with FK'
     ,@TestTableNameReferenced AS SYSNAME = 'test table alter column with FK referenced'
     ,@TestColumnName AS SYSNAME = 'AddressID';
+
+  -- UnitTestAlterColumn.Expected
+  DROP TABLE IF EXISTS UnitTestAlterColumn.Expected;
+  CREATE TABLE UnitTestAlterColumn.Expected
+  (
+    IS_NULLABLE SYSNAME
+    ,DATA_TYPE SYSNAME
+    ,NUMERIC_PRECISION INTEGER
+  );
+  INSERT INTO UnitTestAlterColumn.Expected
+  (
+    IS_NULLABLE
+    ,DATA_TYPE
+    ,NUMERIC_PRECISION
+  )
+  VALUES
+  (
+    'YES'
+    ,'INT'
+    ,10 -- Integer
+    --,19 -- BigInt
+  );
 
   DROP TABLE IF EXISTS UnitTestAlterColumn.[test table alter column with FK referenced];
   CREATE TABLE UnitTestAlterColumn.[test table alter column with FK referenced]
@@ -158,17 +190,16 @@ BEGIN
     @schemaname = @TestSchemaName
     ,@tablename = @TestTableName
     ,@columnname = @TestColumnName
-    --,@columnrename=''
     ,@datatype='INTEGER NULL'
     ,@executionmode=1;
 
-  /*
-    Assert
-  */
+  -- UnitTestAlterColumn.Actual
   SELECT
-    @ACTUAL_IS_NULLABLE = IS_NULLABLE
-    ,@ACTUAL_DATA_TYPE = DATA_TYPE
-    ,@ACTUAL_NUMERIC_PRECISION = NUMERIC_PRECISION
+    IS_NULLABLE
+    ,DATA_TYPE
+    ,NUMERIC_PRECISION
+  INTO
+    UnitTestAlterColumn.Actual
   FROM
     INFORMATION_SCHEMA.COLUMNS
   WHERE
@@ -180,15 +211,22 @@ BEGIN
     DROP CONSTRAINT [FK test table alter column with FK referenced AddressID]
   DROP TABLE IF EXISTS UnitTestAlterColumn.[test table alter column with FK referenced];
   DROP TABLE IF EXISTS UnitTestAlterColumn.[test table alter column with FK];
- 
-  EXEC tSQLt.AssertEquals @EXPECTED_IS_NULLABLE, @ACTUAL_IS_NULLABLE;
-  EXEC tSQLt.AssertEquals @EXPECTED_DATA_TYPE, @ACTUAL_DATA_TYPE;
-  EXEC tSQLt.AssertEquals @EXPECTED_NUMERIC_PRECISION, @ACTUAL_NUMERIC_PRECISION;
+
+  /*
+    Assert
+  */
+  EXEC tSQLt.AssertEqualsTable 
+    @Expected = N'UnitTestAlterColumn.Expected'
+    ,@Actual = N'UnitTestAlterColumn.Actual'
+    ,@Message = N'The expected data was not returned.';
 END;
 GO
 
 EXEC tSQLt.Run 'UnitTestAlterColumn';
 GO
+
+
+--SELECT * FROM tSQLt.TestResult;
 
 -- Cleanup
 EXEC tSQLt.DropClass 'UnitTest_sp_alter_column';
