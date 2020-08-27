@@ -5,7 +5,6 @@ This document defines our plan for the next features of the sp_alter_column.
 + Documentation
 + Performance optimization
 + Increase in managed objects
-+ Unit-test
 + How to debug the sp_alter_column
 
 Stay connected!
