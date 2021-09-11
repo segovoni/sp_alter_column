@@ -16,7 +16,7 @@ Changing the column name is not a trivial operation especially if the column is 
 
 How did you solve the problem?
 
-Some of you have probably deleted manually the linked objects, changed the data type, the size where expected or the properties of the column, and then you may have recreated the previously deleted objects manually. You must have been very careful to avoid chenging the properties of the objects themselves during DROP and CREATE operations.
+Some of you have probably deleted manually the linked objects, changed the data type, the size or the properties of the column, and then you may have recreated the previously deleted objects manually. You must have been very careful to avoid chenging the properties of the objects themselves during DROP and CREATE operations.
 
 I have faced several times this issue, so I have decided to create a stored procedure that is able to compose automatically the appropriate DROP and CREATE commands for each object connected to the column I want to modify. This is how the stored procedure [sp_alter_column](https://github.com/segovoni/sp_alter_column) was born, and it's now available on this GitHub repository!
 
