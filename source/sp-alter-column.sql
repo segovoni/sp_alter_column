@@ -590,8 +590,8 @@ AS BEGIN
       ,sqltext
     )
     SELECT
-      Stat.schemaname
-      ,Stat.tablename
+      Stat.SchemaName
+      ,Stat.TableName
       ,'STATS' AS objecttype
       ,'C' AS operationtype
       ,Stat.SQLStr + ')'
@@ -740,7 +740,7 @@ AS BEGIN
       JOIN
         sys.objects AS O ON (O.object_id=Create_Indexes.object_id)
       WHERE
-        (Create_Indexes.RowType='R')
+        (Create_Indexes.rowtype='R')
       GROUP BY
         Create_Indexes.object_id
         ,Create_Indexes.index_id
