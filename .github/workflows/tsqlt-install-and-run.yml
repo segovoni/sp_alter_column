@@ -50,7 +50,9 @@ jobs:
       - name: Gest the containers list formatted
         run: docker ps --all --filter status=running --no-trunc --format "{{.ID}}"
         id: ContainerID
+        
+      - name: List the entire set of environment variables
+        run: env
 
       - name: Get the container ID
         run: echo "The container ID is ${{ steps.ContainerID.outputs.stdout }}"
-        
