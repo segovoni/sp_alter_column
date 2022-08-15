@@ -52,7 +52,7 @@ jobs:
         id: ContainerID
         
       - name: List the entire set of environment variables
-        run: env
+        run: step.env
 
       - name: Get the container ID
         run: echo "The container ID is ${{ steps.ContainerID.outputs.stdout }}"
