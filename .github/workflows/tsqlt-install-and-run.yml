@@ -1,0 +1,32 @@
+# This workflow installs tSQLt and runs the test units
+
+name: tSQLt installer and unit testing runner
+
+# The workflow will run on push
+on:
+  [push]
+
+jobs:
+ windows-auth-tsqlt:
+  name: Installting tSQLt with SQL Auth
+  runs-on: ubuntu-latest
+  services:
+    sqlserver:
+      image: mcr.microsoft.com/mssql/server:2022-latest
+      ports:
+        - 1433:1433
+      env:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: 3uuiCaKxfbForrK
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install tSQLt with SQL auth
+        uses: lowlydba/tsqlt-installer@v1
+        with:
+          sql-instance: localhost
+          database: master
+          version: latest
+          user: sa
+          password: 3uuiCaKxfbForrK
