@@ -42,7 +42,7 @@ jobs:
         id: ItSQLt
         
       - name: Get the container ID
-        run: echo "The container ID is ${{ steps.ItSQLt.outputs.* }}"
+        run: echo "The container ID is ${{ steps.ItSQLt.outputs.stdout }}"
       
       - name: Run sample query to check SQL Server running in the container
         run:
