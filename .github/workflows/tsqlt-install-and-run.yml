@@ -39,6 +39,10 @@ jobs:
           version: latest
           user: sa
           password: 3uuiCaKxfbForrK
+        id: ItSQLt
+        
+      - name: Get the container ID
+        run: echo "The container ID is ${{ steps.ItSQLt.outputs }}"
       
       - name: Run sample query to check SQL Server running in the container
         run:
