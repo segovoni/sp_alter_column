@@ -54,7 +54,7 @@ jobs:
       - name:
           Gest the containers list formatted
         run:
-          docker ps --format "table {{NAMES}}"
+          docker ps --format "table {{.NAMES}}"
         id:
           ContainerName
 
