@@ -48,7 +48,7 @@ jobs:
         run: docker ps
 
       - name: Gest the containers list formatted
-        run: docker ps --format "table {{.ID}}"
+        run: docker ps --all --filter status=running --no-trunc --format "{{.ID}}"
         id: ContainerID
 
       - name: Get the container ID
