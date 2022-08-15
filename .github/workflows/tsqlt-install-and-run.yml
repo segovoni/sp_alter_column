@@ -41,9 +41,18 @@ jobs:
           password: 3uuiCaKxfbForrK
         id: ItSQLt
         
-      - name: Get the container ID
-        run: echo "The container ID is ${{ steps.ItSQLt.outputs.imageid }}"
-      
-      - name: Gest the containers list
+      - name:
+          Get the container ID
         run:
-          docker ps --format "table {{.ID}}"
+          echo "The container ID is ${{ steps.ItSQLt.outputs.imageid }}"
+      
+      - name:
+          Gest the containers list
+        run:
+          docker ps --format "table {{.NAME}}"
+        id:
+          ContainerName
+
+      - name: Get the container ID
+        run:
+          echo "The container ID is ${{ steps.ContainerName.outputs.NAME }}"
