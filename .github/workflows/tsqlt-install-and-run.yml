@@ -46,10 +46,11 @@ jobs:
 
       - name: Gest the containers list unformatted
         run: docker ps
-
+  
       - name: Gest the containers list formatted
         run: docker ps --all --filter status=running --no-trunc --format "{{.ID}}"
         id: ContainerID
 
       - name: Get the container ID
-        run: echo "The container ID is ${{ steps.ContainerID.outputs.ID }}"
+        run: echo "The container ID is ${{ steps.ContainerID.outputs.stdout }}"
+        
