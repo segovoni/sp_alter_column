@@ -2,22 +2,31 @@
 
 name: tSQLt installer and unit testing runner
 
-# The workflow will run on push
+# Controls when the workflow will run
 on:
-  [push]
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
- windows-auth-tsqlt:
-  name: Installting tSQLt with SQL Auth
-  runs-on: ubuntu-latest
-  services:
-    sqlserver:
-      image: mcr.microsoft.com/mssql/server:2022-latest
-      ports:
-        - 1433:1433
-      env:
-        ACCEPT_EULA: Y
-        SA_PASSWORD: 3uuiCaKxfbForrK
+  windows-auth-tsqlt:
+    name: Installting tSQLt with SQL Auth
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+          - 1433:1433
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: 3uuiCaKxfbForrK
 
     steps:
       - uses: actions/checkout@v2
