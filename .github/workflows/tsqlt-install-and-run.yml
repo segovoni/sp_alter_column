@@ -46,18 +46,15 @@ jobs:
         run:
           echo "The container ID is ${{ steps.ItSQLt.outputs.imageid }}"
 
-      - name:
-          Gest the containers list unformatted
-        run:
-          docker ps
+      - name: Gest the containers list unformatted
+        run: docker ps
 
-      - name:
-          Gest the containers list formatted
-        run:
-          docker ps --format "table {{.NAMES}}"
-        id:
-          ContainerName
+      - name: Gest the containers list formatted
+        run: docker ps --format "table {{.ID}}"
+        id: ContainerName
+
+      - name: Gest the containers list formatted 1
+        run: docker inspect --format '{{json .Mounts}}' container
 
       - name: Get the container ID
-        run:
-          echo "The container ID is ${{ steps.ContainerName.outputs.NAMES }}"
+        run: echo "The container ID is ${{ steps.ContainerName.outputs.NAMES }}"
