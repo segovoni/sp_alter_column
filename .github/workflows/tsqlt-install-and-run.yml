@@ -39,3 +39,7 @@ jobs:
           version: latest
           user: sa
           password: 3uuiCaKxfbForrK
+      
+      - name: Run sample query to check SQL Server running in the container
+        run:
+          docker exec -it /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
