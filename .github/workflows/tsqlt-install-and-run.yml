@@ -54,10 +54,10 @@ jobs:
       - name:
           Gest the containers list formatted
         run:
-          docker ps --format "table {{.ID}}"
+          docker ps --format "table {{.NAMES}}"
         id:
-          ContainerID
+          ContainerName
 
       - name: Get the container ID
         run:
-          echo "The container ID is ${{ steps.ContainerID.outputs.CONTAINERID }}"
+          echo "The container ID is ${{ steps.ContainerName.outputs.NAMES }}"
