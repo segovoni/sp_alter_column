@@ -58,12 +58,12 @@ jobs:
 
       - name: Test environment variable ENV_CONTAINER_ID
         run: echo $ENV_CONTAINER_ID
+        
+      - name: Print environment variables
+        run: env        
 
       - name: Get the database list
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
         
       - name: Create sp_alter_column in tempdb
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "1Password1" -d tempdb -i sp_alter_column.sql
-
-      - name: Print environment variables
-        run: env
