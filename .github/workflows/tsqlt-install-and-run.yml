@@ -70,3 +70,6 @@ jobs:
  
       - name: Create sp_alter_column in tempdb
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./source/sp-alter-column.sql
+
+      - name: Get the stored procedures list
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb -Q "SELECT Name FROM sys.procedures"
