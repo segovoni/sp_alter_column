@@ -56,5 +56,8 @@ jobs:
       - name: Set env
         run: echo "ENV_CONTAINER_ID=$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")" >> $GITHUB_ENV
 
+      - name: Test set env
+        run: echo $ENV_CONTAINER_ID
+
       - name: Get the database list
         run: docker exec -it $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
