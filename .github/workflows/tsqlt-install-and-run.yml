@@ -35,7 +35,7 @@ jobs:
         uses: lowlydba/tsqlt-installer@v1
         with:
           sql-instance: localhost
-          database: master
+          database: tempdb
           version: latest
           user: sa
           password: 3uuiCaKxfbForrK
@@ -53,11 +53,17 @@ jobs:
       - name: Get container ID
         run: echo "The container ID is ${{ steps.ContainerID.outputs.CONTAINER_ID }}"
         
-      - name: Set env
+      - name: Set environment variable ENV_CONTAINER_ID
         run: echo "ENV_CONTAINER_ID=$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")" >> $GITHUB_ENV
 
-      - name: Test set env
+      - name: Test environment variable ENV_CONTAINER_ID
         run: echo $ENV_CONTAINER_ID
 
       - name: Get the database list
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
+        
+      - name: Create sp_alter_column in tempdb
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "1Password1" -d tempdb -i sp_alter_column.sql
+
+      - name: Print environment variables
+        run: env
