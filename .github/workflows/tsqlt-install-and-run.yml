@@ -51,7 +51,7 @@ jobs:
         id: ContainerID
         
       - name: Get container ID
-        run: echo "The container ID is ${{ steps.ContainerID1.outputs.CONTAINER_ID }}"
-                
-      - name: List the entire set of environment variables
-        run: step.env
+        run: echo "The container ID is ${{ steps.ContainerID.outputs.CONTAINER_ID }}"
+
+      - name: Get the database list
+        run: docker exec -it ${{ steps.ContainerID.outputs.CONTAINER_ID }} /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
