@@ -39,27 +39,19 @@ jobs:
           version: latest
           user: sa
           password: 3uuiCaKxfbForrK
-        id: ItSQLt
         
-      - name: Get the container ID
-        run: echo "The container ID is ${{ steps.ItSQLt.outputs.imageid }}"
-
-      - name: Gest the containers list unformatted
+      - name: Get the containers list unformatted
         run: docker ps
   
-      - name: Gest the containers list formatted
+      - name: Get the containers list formatted
         run: docker ps --all --filter status=running --no-trunc --format "{{.ID}}"
-        id: ContainerID
-        
-      - name: Get the container ID
-        run: echo "The container ID is ${{ steps.ContainerID.outputs.stdout }}"
-        
-      - name: Set the container ID1
+                
+      - name: Set the container ID
         run: echo '::set-output name=CONTAINER_ID::$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")'
-        id: ContainerID1
+        id: ContainerID
         
       - name: Get container ID
         run: echo "The container ID is ${{ steps.ContainerID1.outputs.CONTAINER_ID }}"
-        
+                
       - name: List the entire set of environment variables
         run: step.env
