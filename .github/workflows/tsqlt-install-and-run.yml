@@ -66,4 +66,4 @@ jobs:
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
         
       - name: Create sp_alter_column in tempdb
-        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "1Password1" -d tempdb -i $RUNNER_WORKSPACE\source\sp_alter_column.sql
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "1Password1" -d tempdb -i $RUNNER_WORKSPACE/source/sp_alter_column.sql
