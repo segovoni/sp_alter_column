@@ -54,8 +54,12 @@ jobs:
       - name: Get the container ID
         run: echo "The container ID is ${{ steps.ContainerID.outputs.stdout }}"
         
-      - name: Test docker compose ps
-        run: docker-compose ps -q data
+      - name: Set the container ID1
+        run: echo '::set-output name=CONTAINER_ID::$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")'
+        id: ContainerID1
+        
+      - name: Get container ID
+        run: echo "The container ID is ${{ steps.ContainerID1.outputs.CONTAINER_ID }}"
         
       - name: List the entire set of environment variables
         run: step.env
