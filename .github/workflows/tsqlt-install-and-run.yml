@@ -77,9 +77,9 @@ jobs:
       - name: Create tSQLt test class for sp_alter_column
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb -Q "EXEC tSQLt.NewTestClass 'UnitTestAlterColumn'"
 
-      - name: Create unit test [test alter column with PK]
+      - name: Create and run unit test [test alter column with PK]
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./unit-test/sp-alter-column-unit-test-30-test-alter-column-with-PK.sql
 
-      - name: Create unit test 
-        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./unit-test/sp-alter-column-unit-test-31-test-alter-column-with-FK.sql        
-      
+      - name: Create and run unit test [test alter column with FK]
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./unit-test/sp-alter-column-unit-test-31-test-alter-column-with-FK.sql
+     
