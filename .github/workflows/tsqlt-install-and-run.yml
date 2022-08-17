@@ -40,18 +40,18 @@ jobs:
           user: sa
           password: 3uuiCaKxfbForrK
         
-      - name: Get the containers list unformatted
-        run: docker ps
+      #- name: Get the containers list unformatted
+      #  run: docker ps
   
-      - name: Get the containers list formatted
-        run: docker ps --all --filter status=running --no-trunc --format "{{.ID}}"
+      #- name: Get the containers list formatted
+      #  run: docker ps --all --filter status=running --no-trunc --format "{{.ID}}"
                 
-      - name: Set the container ID
-        run: echo '::set-output name=CONTAINER_ID::$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")'
-        id: ContainerID
+      #- name: Set the container ID
+      #  run: echo '::set-output name=CONTAINER_ID::$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")'
+      #  id: ContainerID
         
-      - name: Get container ID
-        run: echo "The container ID is ${{ steps.ContainerID.outputs.CONTAINER_ID }}"
+      #- name: Get container ID
+      #  run: echo "The container ID is ${{ steps.ContainerID.outputs.CONTAINER_ID }}"
         
       - name: Set environment variable ENV_CONTAINER_ID
         run: echo "ENV_CONTAINER_ID=$(docker ps --all --filter status=running --no-trunc --format "{{.ID}}")" >> $GITHUB_ENV
@@ -59,17 +59,27 @@ jobs:
       - name: Test environment variable ENV_CONTAINER_ID
         run: echo $ENV_CONTAINER_ID
         
-      - name: Print environment variables
-        run: env        
+      #- name: Print environment variables
+      #  run: env        
 
       - name: Get the database list
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "SELECT Name FROM sys.databases"
- 
+         
       - name: Copy file sp-alter-column.sql into ENV_CONTAINER_ID
         run: docker cp ./source/sp-alter-column.sql $ENV_CONTAINER_ID:/
  
-      - name: Create sp_alter_column in tempdb
+      - name: Create the system under test (SUT) sp_alter_column
         run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./source/sp-alter-column.sql
 
-      - name: Get the stored procedures list
-        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb -Q "SELECT Name FROM sys.procedures"
+      #- name: Get the stored procedures list
+      #  run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb -Q "SELECT Name FROM sys.procedures"
+
+      - name: Create tSQLt test class for sp_alter_column
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -Q "EXEC tSQLt.NewTestClass 'UnitTestAlterColumn'"
+
+      - name: Create unit test [test alter column with PK]
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./unit-test/sp-alter-column-unit-test-30-test-alter-column-with-PK.sql
+
+      - name: Create unit test 
+        run: docker exec -i $ENV_CONTAINER_ID /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "3uuiCaKxfbForrK" -d tempdb < ./unit-test/sp-alter-column-unit-test-31-test-alter-column-with-FK.sql        
+      
