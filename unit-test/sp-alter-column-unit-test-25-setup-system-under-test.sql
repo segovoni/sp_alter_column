@@ -12,7 +12,7 @@
 -- Notes:        --                                                    -
 ------------------------------------------------------------------------
 
-USE [Alter_Column_DB];
+USE [sp_alter_column_devtest];
 GO
 
 
@@ -20,5 +20,5 @@ GO
   1. Download sp_alter_column from https://github.com/segovoni/sp_alter_column
 
   2. Execute sp-alter-column.sql in the database you have just installed
-     tSQLt framework (Alter_Column_DB for this example)
+     tSQLt framework (sp_alter_column_devtest for this example)
 */

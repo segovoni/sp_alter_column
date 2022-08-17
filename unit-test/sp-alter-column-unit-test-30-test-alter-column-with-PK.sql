@@ -12,8 +12,6 @@
 -- Notes:        --                                                    -
 ------------------------------------------------------------------------
 
-USE [Alter_Column_DB];
-GO
 
 CREATE OR ALTER PROCEDURE UnitTestAlterColumn.[test alter column with PK]
 AS
@@ -103,7 +101,7 @@ END;
 GO
 
 
-EXEC tSQLt.Run'UnitTestAlterColumn.[test alter column with PK]';
+EXEC tSQLt.Run 'UnitTestAlterColumn.[test alter column with PK]';
 GO
 
 

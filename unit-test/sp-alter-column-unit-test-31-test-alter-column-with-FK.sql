@@ -12,9 +12,6 @@
 -- Notes:        --                                                    -
 ------------------------------------------------------------------------
 
-USE [Alter_Column_DB];
-GO
-
 
 CREATE OR ALTER PROCEDURE UnitTestAlterColumn.[test alter column with FK]
 AS

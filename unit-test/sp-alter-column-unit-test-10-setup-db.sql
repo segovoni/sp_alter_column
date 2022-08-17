@@ -16,21 +16,21 @@ USE [master];
 GO
 
 -- Drop database if exists
-IF (DB_ID('Alter_Column_DB') IS NOT NULL)
+IF (DB_ID('sp_alter_column_devtest') IS NOT NULL)
 BEGIN
-  ALTER DATABASE [Alter_Column_DB]
+  ALTER DATABASE [sp_alter_column_devtest]
     SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 
-  DROP DATABASE [Alter_Column_DB];
+  DROP DATABASE [sp_alter_column_devtest];
 END;
 GO
 
 -- Create database
-CREATE DATABASE [Alter_Column_DB];
+CREATE DATABASE [sp_alter_column_devtest];
 GO
 
 /*
-USE [Alter_Column_DB];
+USE [sp_alter_column_devtest];
 GO
 
 IF OBJECT_ID('dbo.Tab2', 'U') IS NOT NULL

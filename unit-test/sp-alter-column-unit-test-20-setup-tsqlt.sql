@@ -25,12 +25,12 @@ EXEC sp_configure 'clr enabled';
 GO
 
 
-USE [Alter_Column_DB];
+USE [sp_alter_column_devtest];
 GO
 
 -- Enable TRUSTWORTHY property at the database level
 -- in each database you want to install tSQLt framework
-ALTER DATABASE [Alter_Column_DB] SET TRUSTWORTHY ON;
+ALTER DATABASE [sp_alter_column_devtest] SET TRUSTWORTHY ON;
 GO
 
 
