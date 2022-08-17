@@ -1,4 +1,4 @@
-# SQL Server sp_alter_column stored procedure!
+# sp_alter_column stored procedure for SQL Server!
 
 The *sp_alter_column* stored procedure is able to alter a column with dependencies in your SQL Server database!
 
