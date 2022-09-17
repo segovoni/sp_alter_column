@@ -1,3 +1,5 @@
+[![tSQLt installer and unit testing runner](https://github.com/segovoni/sp_alter_column/actions/workflows/unit-test-runner.yml/badge.svg)](https://github.com/segovoni/sp_alter_column/actions/workflows/unit-test-runner.yml)
+
 # sp_alter_column stored procedure for SQL Server!
 
 The *sp_alter_column* stored procedure is able to alter a column with dependencies in your SQL Server database!
